@@ -13,7 +13,7 @@ from time import sleep
 #me.send_rc_control(0, 0, 10, 0)
 #sleep(0.5)
 
-pid = [0.15, 0.05,0]
+pid = [0.15, 0.1,0]
 pErrorX = 0
 pErrorY = 0
 w, h = 540, 340

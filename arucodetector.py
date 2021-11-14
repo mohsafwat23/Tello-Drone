@@ -10,10 +10,11 @@ me.connect()#connect to the drone
 print(me.get_battery())
 me.streamon()
 me.takeoff()
-me.send_rc_control(0, 0, 15, 0)
-sleep(2)
+me.send_rc_control(0, 0, 30, 0)
+#sleep(2.8)
+sleep(1.5)
 
-pid = [0.15, 0.05,0]
+pid = [.25, 0.04,0]
 pErrorX = 0
 pErrorY = 0
 w, h = 540, 340
@@ -65,25 +66,26 @@ def findArUco(img, markerSize= 4, totalMarkers = 250, draw =True):
     #      cv2.aruco.drawDetectedMarkers(img, corners, ids)
     # return x_centerPixel, y_centerPixel
 #def trackMarker(me, info,h, pid, pErrorY, pErrorX):
-def trackMarker(me, info,h, pid, pErrorY):
+def trackMarker(me, info,h, pid, pErrorY, pErrorX):
     x,y = info
 
     errorY = y - h//2
     errorX = x - w//2
     speed_fb = pid[0]*errorY + pid[1]*(errorY-pErrorY)
-    #speed_lr = pid[0]*errorX + pid[1]*(errorX-pErrorX)
-    speed_fb = int(np.clip(speed_fb, -15, 15))
-    #speed_lr = int(np.clip(speed_lr, -10, 10))
-    #if y == 0:
-    if -50 <= y <= 50:
+    speed_lr = pid[0]*errorX + pid[1]*(errorX-pErrorX)
+    speed_fb = int(np.clip(speed_fb, -25, 25))
+    speed_lr = int(np.clip(speed_lr, -10, 10))
+    if y == 0:
+    #if -10 <= y <= 10:
         speed_fb = 0
         errorY = 0
-    # if x == 0:
-    #     speed_lr = 0
-    #     errorX = 0
+    if x == 0:
+    #if -3 <= x <= 3:
+         speed_lr = 0
+         errorX = 0
     #print(errorX, errorY)
-    me.send_rc_control(0, speed_fb, 0, 0)# add speed l_r
-    return errorY#, errorX
+    me.send_rc_control(speed_lr, speed_fb, 0, 0)# add speed l_r
+    return errorY, errorX, speed_lr, speed_fb
 #cap = cv2.VideoCapture(0)
 
 while True:
@@ -91,13 +93,22 @@ while True:
     #_, img = cap.read()
     img=cv2.resize(img,(w,h))
     info = findArUco(img)
-    #pErrorY, pErrorX = trackMarker(me,info,h, pid, pErrorY, pErrorX)
+    pErrorY, pErrorX, speed_lr, speed_fb = trackMarker(me,info,h, pid, pErrorY, pErrorX)
+    print(pErrorY, pErrorX)
     #pErrorY, pErrorX = trackMarker(info,h, pid, pErrorY, pErrorX)
-    pErrorY = trackMarker(me, info,h, pid, pErrorY)
+    #pErrorY = trackMarker(me, info,h, pid, pErrorY)
 
     cv2.imshow("Output",img)
     if cv2.waitKey(1) & 0xFF == ord('q'):
+        me.send_rc_control(0, 0, -15, 0)
+        sleep(1.5)
+        pErrorY, pErrorX, speed_lr, speed_fb = trackMarker(me,info,h, pid, pErrorY, pErrorX)
+        #me.send_rc_control(0, -8,0,0)
+        me.send_rc_control(speed_lr, speed_fb, 0, 0)
+        #sleep(1.0)
+        sleep(0.3)
         me.land()
+        print(me.get_battery())
         me.streamoff()
         break
      
