@@ -5,6 +5,13 @@ Following an AruCo Marker with Tello Drone
 
 `pip3 install requirements.txt`
 
-**Running the Code**
+**Camera Calibration**
+Use the following Repo: https://github.com/smidm/video2calibration
 
-`python3 arucodetector.py`
+**Running the Code on your Laptop Camera**
+`python3 laptopAruco.py`
+
+**Running the Code on the Drone**
+
+`python3 arucoDetector.py`
+
