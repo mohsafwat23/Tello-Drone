@@ -6,16 +6,6 @@ from djitellopy import tello
 from time import *
 import csv
 
-# me = tello.Tello()#initialze drone 
-# me.connect()#connect to the drone
-# print(me.get_battery())
-# me.streamon()
-# me.takeoff()
-# me.send_rc_control(0, 0, 25, 0) #go up at a speed of 25 cm/s for 1.5 seconds
-# sleep(1.5)
-
-
-
 pidX = [0.15, 0.1,0]
 pidY = [0.4, 0.01,0]
 pid_theta = [0.4, 0.4, 0]

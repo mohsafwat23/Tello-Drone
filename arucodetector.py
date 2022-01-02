@@ -6,8 +6,8 @@ from djitellopy import tello
 from time import *
 import csv
 
-me = tello.Tello()#beforeze drone 
-me.connect()#connect to the drone
+me = tello.Tello() 
+me.connect()
 print(me.get_battery())
 me.streamon()
 me.takeoff()
