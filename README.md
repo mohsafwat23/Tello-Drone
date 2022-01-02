@@ -1,5 +1,7 @@
 # Landing a Tello Drone on a moving platform
-Video: https://youtu.be/Vv7nIcAhIz4
+Test 1: https://www.youtube.com/watch?v=pLj1-OuRMBo
+
+Test 2: https://www.youtube.com/watch?v=yf9jpwGMS0w
 
 ## Setup
 * An AruCo Marker is printed and attached to a square platform
