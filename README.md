@@ -24,7 +24,7 @@ Install requirements:
 `pip3 install requirements.txt`
 
 ## Running the Code on your Laptop Camera
-_ _For testing first(without the drone)
+*For testing first(without the drone)*
 
 `python3 laptopAruco.py`
 
