@@ -20,10 +20,12 @@ Use `recorder.py` to record the video required for calibration or use the Tello 
 ## Installation
 Required libraries are OpenCV for the visual detection algorithm and the Tellopy for controlling the drones
 Install requirements:
+
 `pip3 install requirements.txt`
 
 ## Running the Code on your Laptop Camera
-* * For testing first
+_ _For testing first(without the drone)
+
 `python3 laptopAruco.py`
 
 ## Running the Code on the Drone
